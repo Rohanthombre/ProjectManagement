@@ -1,0 +1,14 @@
+/Service/ProjectManagement.Solution/packages
+/Service/ProjectManagement.Solution/.vs
+/Service/ProjectManagement.Solution/ProjectManagement.DataAccess/obj
+/Service/ProjectManagement.Solution/ProjectManagement.DataAccess/bin
+/Service/ProjectManagement.Solution/ProjectManagement.Models/obj
+/Service/ProjectManagement.Solution/ProjectManagement.Models/bin
+/Service/ProjectManagement.Solution/ProjectManagement.Services/obj
+/Service/ProjectManagement.Solution/ProjectManagement.Services/bin
+/Service/ProjectManagement.Solution/ProjectManagement.Test.QualityTools/bin
+/Service/ProjectManagement.Solution/ProjectManagement.Test.QualityTools/obj
+/Service/ProjectManagement.Solution/ProjectManagement.WebApi/obj
+/Service/ProjectManagement.Solution/ProjectManagement.WebApi/bin
+/Service/ProjectManagement.Solution/ProjectManagement.WebApi.Tests/obj
+/Service/ProjectManagement.Solution/ProjectManagement.WebApi.Tests/bin
