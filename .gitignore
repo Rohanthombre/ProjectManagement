@@ -12,3 +12,5 @@
 /Service/ProjectManagement.Solution/ProjectManagement.WebApi/bin
 /Service/ProjectManagement.Solution/ProjectManagement.WebApi.Tests/obj
 /Service/ProjectManagement.Solution/ProjectManagement.WebApi.Tests/bin
+/Service/ProjectManagement.Solution/ProjectManagement.Services.Contracts/obj
+/Service/ProjectManagement.Solution/ProjectManagement.Services.Contracts/bin

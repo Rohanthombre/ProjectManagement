@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectManagement.Test.QualityTools
 {
-    public class Class1
+    class UserServiceFake
     {
     }
 }

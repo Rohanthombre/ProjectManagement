@@ -1,11 +1,9 @@
 ﻿using ProjectManagement.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace ProjectManagement.Services
+namespace ProjectManagement.Services.Contracts
 {
     public interface ITaskService : IDisposable
     {
@@ -20,7 +18,5 @@ namespace ProjectManagement.Services
         bool DeleteTask(int taskId);
 
         bool EndTask(int taskId);
-
-
     }
 }

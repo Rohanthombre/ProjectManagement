@@ -1,11 +1,9 @@
 ﻿using ProjectManagement.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace ProjectManagement.Services
+namespace ProjectManagement.Services.Contracts
 {
     public interface IUserService : IDisposable
     {
@@ -17,7 +15,6 @@ namespace ProjectManagement.Services
 
         bool EditUser(UserModel userModel);
 
-        bool DeleteUser(int userId);
-
+        bool DeleteUser(int userId);  
     }
 }
