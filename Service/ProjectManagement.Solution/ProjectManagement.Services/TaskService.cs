@@ -1,4 +1,5 @@
 ﻿using ProjectManagement.DataAccess;
+using ProjectManagement.DataAccess.Contracts;
 using ProjectManagement.Models;
 using ProjectManagement.Services.Contracts;
 using System;
@@ -11,17 +12,18 @@ namespace ProjectManagement.Services
 {
     public class TaskService : ITaskService
     {
-        private ProjectManagementEntities _entities;
+        private IRepositoryDbContext _entities;
 
-        //public TaskServices(TaskManagerEntities entities)
-        //{
-        //    this._entities = entities;
-        //}
+        public TaskService(IRepositoryDbContext entities)
+        {
+            this._entities = entities;
+        }
 
         public TaskService()
         {
             this._entities = new ProjectManagementEntities();
         }
+
 
         public bool CreateTask(TaskModel taskModel)
         {
@@ -85,8 +87,6 @@ namespace ProjectManagement.Services
             foreach (var entityTask in _entities.Tasks)
             {
                 var parentTask = _entities.Tasks.FirstOrDefault(e => e.Task_Id == entityTask.Parent_TaskId);
-
-                //var project = _entities.Projects.FirstOrDefault(e => e.Project_Id== entityTask.Project_Id);
 
                 tasksModel.Add(
                     new TaskModel()

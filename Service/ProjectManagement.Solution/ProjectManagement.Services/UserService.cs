@@ -12,6 +12,11 @@ namespace ProjectManagement.Services
     {
         private ProjectManagementEntities _entities;
 
+        public UserService(ProjectManagementEntities entities)
+        {
+            this._entities = entities;
+        }
+
         public UserService()
         {
             this._entities = new ProjectManagementEntities();

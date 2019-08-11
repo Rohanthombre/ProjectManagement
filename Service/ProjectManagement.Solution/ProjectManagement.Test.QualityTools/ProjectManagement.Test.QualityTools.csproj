@@ -79,6 +79,14 @@
       <Project>{4b2de6c5-42e6-44a2-8fdf-bb257b88eae2}</Project>
       <Name>ProjectManagement.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectManagement.Models\ProjectManagement.Models.csproj">
+      <Project>{3a981e9a-d514-4897-a141-e692dc6a5cd8}</Project>
+      <Name>ProjectManagement.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectManagement.Services.Contracts\ProjectManagement.Services.Contracts.csproj">
+      <Project>{15130a1b-5c1d-48cd-adc6-4195ed79d6c1}</Project>
+      <Name>ProjectManagement.Services.Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

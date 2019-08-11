@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjectManagement.DataAccess.Contracts
 {
-    public interface IProjectManagementDbContext : IDisposable
+    public interface IRepositoryDbContext : IDisposable
     {
         IDbSet<Task> Tasks { get; set; }
 
@@ -15,13 +15,13 @@ namespace ProjectManagement.DataAccess.Contracts
 
         IDbSet<User> Users { get; set; }
 
-        DbContext ProjectManagementEdContext { get; set; }
+        //DbContext ProjectManagementEdContext { get; set; }
 
         int SaveChanges();
-    
+
 
         //DbEntityEntry Entry(object value);
 
-            void SetModifield(object value);
+        void SetModifield(object value);
     }
 }

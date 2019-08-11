@@ -9,11 +9,12 @@
 
 namespace ProjectManagement.DataAccess
 {
+    using ProjectManagement.DataAccess.Contracts;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ProjectManagementEntities : DbContext
+    public partial class ProjectManagementEntities : DbContext, IRepositoryDbContext
     {
         public ProjectManagementEntities()
             : base("name=ProjectManagementEntities")
@@ -25,8 +26,18 @@ namespace ProjectManagement.DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Task> Tasks { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Project> Projects { get; set; }
+        public virtual IDbSet<Task> Tasks { get; set; }
+        public virtual IDbSet<User> Users { get; set; }
+        public virtual IDbSet<Project> Projects { get; set; }
+
+        //public virtual DbSet<Task> Tasks { get; set; }
+        //public virtual DbSet<User> Users { get; set; }
+        //public virtual DbSet<Project> Projects { get; set; }
+
+
+        public void SetModifield(object value)
+        {
+            Entry(value).State = EntityState.Modified;
+        }
     }
 }
