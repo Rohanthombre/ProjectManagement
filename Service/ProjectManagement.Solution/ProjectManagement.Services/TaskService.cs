@@ -29,7 +29,7 @@ namespace ProjectManagement.Services
         {
             var task = new Task()
             {
-                Parent_TaskId = taskModel.ParentTask.ParentTaskId,
+                Parent_TaskId = taskModel.ParentTask != null ? taskModel.ParentTask.ParentTaskId : null,
                 Project_Id = taskModel.Project.ProjectId,
                 TaskName = taskModel.TaskName,
                 Start_Date = taskModel.StartDate,
@@ -123,32 +123,39 @@ namespace ProjectManagement.Services
             var taskModel = new TaskModel();
 
             var output = _entities.Tasks.FirstOrDefault(e => e.Task_Id == id);
-            var parentTask = _entities.Tasks.FirstOrDefault(e => e.Task_Id == output.Parent_TaskId);
+            if (output != null)
+            {
+                var parentTask = _entities.Tasks.FirstOrDefault(e => e.Task_Id == output.Parent_TaskId);
 
-            taskModel =
-                new TaskModel()
-                {
-                    TaskId = output.Task_Id,
-                    TaskName = output.TaskName,
-                    ParentTask = parentTask != null ? new ParentTask()
+                taskModel =
+                    new TaskModel()
                     {
-                        ParentTaskId = parentTask.Task_Id,
-                        ParentTaskName = parentTask.TaskName
-                    } : null,
-                    Project = output.Project != null ? new ProjectModel()
-                    {
-                        ProjectId = output.Project.Project_Id,
-                        ProjectName = output.Project.ProjectName,
-                        StartDate = output.Project.Start_Date,
-                        EndDate = output.Project.End_Date,
-                        Priority = output.Project.Priority
-                    } : null,
-                    StartDate = output.Start_Date,
-                    EndDate = output.End_Date,
-                    Priority = output.Priority,
-                    Status = output.Status
+                        TaskId = output.Task_Id,
+                        TaskName = output.TaskName,
+                        ParentTask = parentTask != null ? new ParentTask()
+                        {
+                            ParentTaskId = parentTask.Task_Id,
+                            ParentTaskName = parentTask.TaskName
+                        } : null,
+                        Project = output.Project != null ? new ProjectModel()
+                        {
+                            ProjectId = output.Project.Project_Id,
+                            ProjectName = output.Project.ProjectName,
+                            StartDate = output.Project.Start_Date,
+                            EndDate = output.Project.End_Date,
+                            Priority = output.Project.Priority
+                        } : null,
+                        StartDate = output.Start_Date,
+                        EndDate = output.End_Date,
+                        Priority = output.Priority,
+                        Status = output.Status
 
-                };
+                    };
+            }
+            else
+            {
+                return null;
+            }
 
             return taskModel;
 
