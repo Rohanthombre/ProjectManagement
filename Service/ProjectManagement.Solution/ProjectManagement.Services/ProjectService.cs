@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ProjectManagement.DataAccess;
+using ProjectManagement.DataAccess.Contracts;
 using ProjectManagement.Models;
 using ProjectManagement.Services.Contracts;
 
@@ -10,12 +11,59 @@ namespace ProjectManagement.Services
 {
     public class ProjectService : IProjectService
     {
-        private ProjectManagementEntities _entities;
+        private IRepositoryDbContext _entities;
+
+        public ProjectService(IRepositoryDbContext entities)
+        {
+            this._entities = entities;
+        }
 
         public ProjectService()
         {
             this._entities = new ProjectManagementEntities();
         }
+
+        public ICollection<ProjectModel> GetAllProjects()
+        {
+            var projectsModel = new List<ProjectModel>();
+            foreach (var entityProject in _entities.Projects)
+            {
+                projectsModel.Add(
+                    new ProjectModel()
+                    {
+                        ProjectId = entityProject.Project_Id,
+                        ProjectName = entityProject.ProjectName,
+                        StartDate = entityProject.Start_Date,
+                        EndDate = entityProject.End_Date,
+                        Priority = entityProject.Priority
+                    });
+
+            }
+            return projectsModel;
+        }
+
+        public ProjectModel GetProjectById(int projectId)
+        {
+            var projectModel = new ProjectModel();
+            var entityProject = _entities.Projects.FirstOrDefault(e => e.Project_Id == projectId);
+            if(entityProject!=null)
+            {
+                projectModel =
+                new ProjectModel()
+                {
+                    ProjectId = entityProject.Project_Id,
+                    ProjectName = entityProject.ProjectName,
+                    StartDate = entityProject.Start_Date,
+                    EndDate = entityProject.End_Date,
+                    Priority = entityProject.Priority
+                };
+
+                return projectModel;
+            }
+            return null;
+        }
+
+
         public bool CreateProject(ProjectModel projectModel)
         {
             var project = new Project()
@@ -70,40 +118,6 @@ namespace ProjectManagement.Services
         }
 
 
-        public ICollection<ProjectModel> GetAllProjects()
-        {
-            var projectsModel = new List<ProjectModel>();
-            foreach (var entityProject in _entities.Projects)
-            {
-                projectsModel.Add(
-                    new ProjectModel()
-                    {
-                        ProjectId = entityProject.Project_Id,
-                        ProjectName = entityProject.ProjectName,
-                        StartDate = entityProject.Start_Date,
-                        EndDate = entityProject.End_Date,
-                        Priority = entityProject.Priority
-                    });
-
-            }
-            return projectsModel;
-        }
-
-        public ProjectModel GetProjectById(int projectId)
-        {
-            var projectModel = new ProjectModel();
-            var entityProject = _entities.Projects.FirstOrDefault(e => e.Project_Id == projectId);
-            projectModel =
-                new ProjectModel()
-                {
-                    ProjectId = entityProject.Project_Id,
-                    ProjectName = entityProject.ProjectName,
-                    StartDate = entityProject.Start_Date,
-                    EndDate = entityProject.End_Date,
-                    Priority = entityProject.Priority
-                };
-
-            return projectModel;
-        }
+        
     }
 }

@@ -30,7 +30,7 @@ namespace ProjectManagement.Services
             var task = new Task()
             {
                 Parent_TaskId = taskModel.ParentTask != null ? taskModel.ParentTask.ParentTaskId : null,
-                Project_Id = taskModel.Project.ProjectId,
+                Project_Id = taskModel.Project?.ProjectId,
                 TaskName = taskModel.TaskName,
                 Start_Date = taskModel.StartDate,
                 End_Date = taskModel.EndDate,
@@ -46,8 +46,8 @@ namespace ProjectManagement.Services
 
             if (task != null)
             {
-                task.Parent_TaskId = taskModel.ParentTask.ParentTaskId;
-                task.Project_Id = taskModel.Project.ProjectId;
+                task.Parent_TaskId = taskModel.ParentTask != null ? taskModel.ParentTask.ParentTaskId : null;
+                task.Project_Id = taskModel.Project?.ProjectId;
                 task.TaskName = taskModel.TaskName;
                 task.Start_Date = taskModel.StartDate;
                 task.End_Date = taskModel.EndDate;

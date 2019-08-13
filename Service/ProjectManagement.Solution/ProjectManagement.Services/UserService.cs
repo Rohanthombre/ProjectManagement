@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ProjectManagement.DataAccess;
+using ProjectManagement.DataAccess.Contracts;
 using ProjectManagement.Models;
 using ProjectManagement.Services.Contracts;
 
@@ -10,9 +11,9 @@ namespace ProjectManagement.Services
 {
     public class UserService : IUserService
     {
-        private ProjectManagementEntities _entities;
+        private IRepositoryDbContext _entities;
 
-        public UserService(ProjectManagementEntities entities)
+        public UserService(IRepositoryDbContext entities)
         {
             this._entities = entities;
         }
@@ -21,6 +22,7 @@ namespace ProjectManagement.Services
         {
             this._entities = new ProjectManagementEntities();
         }
+
         public bool CreateUser(UserModel userModel)
         {
             var user = new User()
@@ -101,7 +103,9 @@ namespace ProjectManagement.Services
         {
             var userModel = new UserModel();
             var entityUser = _entities.Users.FirstOrDefault(e => e.User_Id == userId);
-            userModel =
+            if(entityUser!=null)
+            {
+                userModel =
                 new UserModel()
                 {
                     UserId = entityUser.User_Id,
@@ -112,7 +116,9 @@ namespace ProjectManagement.Services
                     TaskId = entityUser.Task_Id
                 };
 
-            return userModel;
+                return userModel;
+            }
+            return null;
         }
     }
 }

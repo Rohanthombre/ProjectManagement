@@ -69,7 +69,7 @@ namespace ProjectManagement.WebApi.Controllers
             {
                 if (_taskServices.CreateTask(taskModel))
                 {
-                    return this.Ok();
+                    return this.Content(HttpStatusCode.OK, taskModel);
                 }
                 else
                 {
@@ -113,11 +113,12 @@ namespace ProjectManagement.WebApi.Controllers
             {
                 if (_taskServices.DeleteTask(taskId))
                 {
-                    return this.Ok();
+                    //return this.Ok();
+                    return this.Content(HttpStatusCode.OK, taskId);
                 }
                 else
                 {
-                    return NotFound();
+                    return this.Content(HttpStatusCode.NotFound, taskId);
                 }
             }
             catch (Exception ex)
@@ -128,13 +129,13 @@ namespace ProjectManagement.WebApi.Controllers
 
         [HttpPost]
         [Route("EndTask")]
-        public IHttpActionResult EndTask([FromBody] TaskModel taskModel)
+        public IHttpActionResult EndTask(int taskId)
         {
             try
             {
-                if (_taskServices.EndTask(taskModel.TaskId))
+                if (_taskServices.EndTask(taskId))
                 {
-                    return this.Content(HttpStatusCode.OK, taskModel);
+                    return this.Content(HttpStatusCode.OK, taskId);
                 }
                 else
                 {
