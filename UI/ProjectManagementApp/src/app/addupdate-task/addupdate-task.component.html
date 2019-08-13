@@ -1,0 +1,80 @@
+<p>
+
+</p>
+<div class="card bg-light" style="max-width: 42rem;">
+  <div class="card-header">{{pageTitle}}</div>
+  <div class="card-body">
+    <form [formGroup]="AddUpdateTaskFormGroup" (ngSubmit)="onFormSubmit()" class="form-horizontal">
+      <div class="panel-body">
+        <div class="form-group">
+          <label for="taskname">Task:</label>
+          <input type="text" id="taskName" placeholder="Task Description" class="form-control col-sm-5" formControlName="taskName">
+          <div *ngIf="taskName.invalid && taskName.errors?.required" class="alert alert-danger col-sm-5">
+            Task Description is Required
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Priority">Priority:</label>
+          <div class="col-sm-5">
+            <div>
+              <div class="float-left">{{priorityMin}}</div>
+              <div class="float-right">{{priorityMax}}</div>
+            </div>
+            <input type="range" min="{{priorityMin}}-1" max="{{priorityMax}}" class="form-control-range col-sm-12"
+              id="priority" formControlName="priority">
+          </div>
+          <div *ngIf="priority.invalid && priority.errors?.required" class="alert alert-danger col-sm-5">
+            Priority is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="parenttaskname">Parent Task:</label>
+          <select class="form-control col-sm-5" formControlName="parentTaskId" id="parentTaskId">
+            <option [ngValue]="null">--Select--</option>
+            <option *ngFor="let task of parentTasks" [ngValue]="task.ParentTaskId">
+              {{task.TaskName + "  " + task.ParentTaskId}}</option>
+          </select>
+          <div *ngIf="parentTaskId.invalid && parentTaskId.errors?.DefaultValueValidator"
+            class="alert alert-danger col-sm-5">
+            Task Description is Required
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="startdate">Start Date:</label>
+
+          <input type="text" bsDatepicker id="startDate" placeholder="select date" class="form-control col-sm-5"
+          formControlName="startDate"
+          [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD-MM-YYYY' }" />
+
+          <div *ngIf="startDate.invalid &&  startDate.errors?.IsValidDate" class="alert alert-danger col-sm-5">
+            Start Date is Invalid
+          </div>
+          <div *ngIf="startDate.invalid &&  startDate.errors?.required" class="alert alert-danger col-sm-5">
+            Start Date is Required
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="enddate">End Date:</label>
+
+          <input type="text" id="endDate" placeholder="select date" class="form-control col-sm-5"
+            formControlName="endDate" bsDatepicker
+            [bsConfig]="{dateInputFormat: 'DD-MM-YYYY', isAnimated: true }" />
+          <div *ngIf="endDate.invalid &&  endDate.errors?.IsValidDate" class="alert alert-danger col-sm-5">
+            End Date is Invalid
+          </div>
+          <div *ngIf="endDate.invalid &&  endDate.errors?.required" class="alert alert-danger col-sm-5">
+            End Date is Required
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <button type="submit" class="btn btn-primary">Save</button> &nbsp;
+        <button type="button" class="btn btn-primary" (click)='reset()'>Reset</button>
+
+        <!-- <button type="submit" class="btn btn-primary" [disabled]="task.invalid">Save</button>
+                          <button type="button" class="btn btn-primary" (click)='reset()'>Reset</button> -->
+      </div>
+
+    </form>
+  </div>
+</div>

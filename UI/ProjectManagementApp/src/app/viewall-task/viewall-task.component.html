@@ -1,0 +1,105 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{title}}</h3>
+    </div>
+
+    <div class="panel-body">
+        <!-- <form [formGroup]="viewQueryForm" name="viewQueryForm" id="viewQueryForm"> -->
+
+            <div class="container-fluid justify-content text-left">
+
+                <div class="form-group form-inline ">
+
+                    <label for="taskName" class="fieldlabelleft col-md-2">Task: </label>
+                    <input type="text" class="form-control col-md-4" [(ngModel)]="taskName" />
+
+                    <label for="parentTaskName" class="col-md-2 fieldlabelleft">Parent Task: </label>
+                    <input class="form-control col-md-4" [(ngModel)]="parentTaskName" list="parentTaskList"
+                        type="text" id="parentTaskName">
+                    <datalist id="parentTaskList">
+                        <option value="">--Select--</option>
+                        <option *ngFor="let parentTask of ParentTasks" [ngValue]="parentTask.TaskId">
+                            {{parentTask.ParentTask}}</option>
+                    </datalist>
+                </div>
+                <div class="form-group form-inline">
+                    <!-- <form [formGroup]="priorityFormGroup" class="col-md-6 childfrom"> -->
+                        <div class="form-group form-inline">
+                            <div class='col-md-2'>Priority From:</div>
+                            <!-- <label for="priorityFrom" class="col-md-2 fieldlabelleft">Priority From: </label> -->
+                            <input id="priorityFrom" type="text" class="form-control col-md-4"
+                                [(ngModel)]="priorityFrom" />
+
+                            <label for="priorityTo" class="col-md-2" style="justify-content: left">Priority To: </label>
+                            <input id="priorityTo" type="text" class="form-control col-md-4"
+                                [(ngModel)]="priorityTo" />
+                        </div>
+                    <!-- </form> -->
+
+                    <!-- <form [formGroup]="dateFormGroup" class="col-md-6 childfrom"> -->
+                        <div class="form-group form-inline">
+
+                            <label for="startDate" class="col-md-2 fieldlabelleft">Start Date: </label>
+                            <input type="text" id="startDate" class="form-control col-md-4" [(ngModel)]="startDate"
+                                bsDatepicker [bsConfig]="{dateInputFormat: 'DD-MM-YYYY', isAnimated: true }" />
+
+
+                            <label for="endDate" class="col-md-2 fieldlabelleft">End Date: </label>
+                            <input type="text" id="endDate" class="form-control col-md-4" [(ngModel)]="endDate"
+                                bsDatepicker [bsConfig]="{dateInputFormat: 'DD-MM-YYYY', isAnimated: true }" />
+                        </div>
+                    <!-- </form> -->
+                </div>
+            </div>
+        <!-- </form> -->
+    </div>
+
+    <div class="panel-body">
+        <div class='row'>
+            <div class='col-md-6'>
+            </div>
+        </div>
+        <div class='table-responsive'>
+            <table class='table' *ngIf='tasks && tasks.length'>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Parent</th>
+                        <th>Priority</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor='let task of tasks | taskQuery : taskName:  parentTaskName: priorityFrom: priorityTo: startDate: endDate'>
+                        <td>
+                            {{ task.TaskName }}
+                        </td>
+                        <td>
+                            <!-- {{ task.ParentTask.TaskName }} -->
+                            {{task.ParentTaskName}}
+                        </td>
+
+                        <td>{{ task.Priority }}</td>
+                        <td>{{ task.StartDate }}</td>
+                        <td>{{ task.EndDate }}</td>
+                        <td>
+                            <button class='btn btn-primary' value="Edit"
+                                [routerLink]="['/addupdate-task',{id:task.TaskId}]">Edit</button> &nbsp;
+                            <button class='btn btn-primary' value="End Task">End Task</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div *ngIf='errorMessage' class='alert alert-danger'>
+            Error: {{ errorMessage }}
+        </div>
+    </div>
+
+
+</div>
