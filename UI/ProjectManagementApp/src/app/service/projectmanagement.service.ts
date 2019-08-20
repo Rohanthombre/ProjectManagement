@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { IProjectManagementService } from './IProjectManagementService';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Task } from '../Models/task';
+import { Task } from '../Models/Task';
 import { environment } from 'src/environments/environment';
 import { User } from '../Models/user';
 import { Project } from '../Models/project';

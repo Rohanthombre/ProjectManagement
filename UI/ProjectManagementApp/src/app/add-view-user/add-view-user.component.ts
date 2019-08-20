@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Task } from '../Models/task';
+import { Task } from '../Models/Task';
 import { User } from '../Models/user';
 import { ProjectmanagementService } from '../service/projectmanagement.service';
 

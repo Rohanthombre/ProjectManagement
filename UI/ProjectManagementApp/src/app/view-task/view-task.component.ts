@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskQueryModel } from '../Models/TaskQueryModel';
+import { TaskQueryModel } from '../Models/taskquerymodel';
 
 @Component({
   selector: 'app-view-task',
