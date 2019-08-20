@@ -33,10 +33,14 @@ namespace ProjectManagement.Services
                     {
                         ProjectId = entityProject.Project_Id,
                         ProjectName = entityProject.ProjectName,
+                        NoOfTasks = entityProject.Tasks.Count,
+                        NoOfClosedTasks = entityProject.Tasks.Where(e => e.Status == "Closed").Count(),
                         StartDate = entityProject.Start_Date,
                         EndDate = entityProject.End_Date,
                         Priority = entityProject.Priority
-                    });
+                    }); ;
+
+
 
             }
             return projectsModel;
@@ -46,7 +50,7 @@ namespace ProjectManagement.Services
         {
             var projectModel = new ProjectModel();
             var entityProject = _entities.Projects.FirstOrDefault(e => e.Project_Id == projectId);
-            if(entityProject!=null)
+            if (entityProject != null)
             {
                 projectModel =
                 new ProjectModel()
@@ -66,35 +70,48 @@ namespace ProjectManagement.Services
 
         public bool CreateProject(ProjectModel projectModel)
         {
-            var project = new Project()
+
+            var user = _entities.Users.FirstOrDefault(e => e.User_Id == projectModel.UserId);
+            if (user != null)
             {
-                Project_Id = projectModel.ProjectId,
-                ProjectName = projectModel.ProjectName,
-                Start_Date = projectModel.StartDate,
-                End_Date = projectModel.EndDate,
-                Priority = projectModel.Priority
-            };
-            _entities.Projects.Add(project);
-            return _entities.SaveChanges() > 0;
+                var project = new Project()
+                {
+                    Project_Id = projectModel.ProjectId,
+                    ProjectName = projectModel.ProjectName,
+                    Start_Date = projectModel.StartDate,
+                    End_Date = projectModel.EndDate,
+                    Priority = projectModel.Priority
+                };
+                _entities.Projects.Add(project);
+
+                if (_entities.SaveChanges() > 0)
+                {
+                    user.Project_Id = project.Project_Id;
+                    return _entities.SaveChanges() > 0;
+                }
+            }
+            return false;
         }
 
         public bool EditProject(ProjectModel projectModel)
         {
             var project = _entities.Projects.FirstOrDefault(e => e.Project_Id == projectModel.ProjectId);
+            var user = _entities.Users.FirstOrDefault(e => e.User_Id == projectModel.UserId);
 
-            if (project != null)
+            if (project != null && user != null)
             {
                 project.ProjectName = projectModel.ProjectName;
                 project.Start_Date = projectModel.StartDate;
                 project.End_Date = projectModel.EndDate;
                 project.Priority = projectModel.Priority;
 
-                return _entities.SaveChanges() > 0;
+                if (_entities.SaveChanges() > 0)
+                {
+                    user.Project_Id = project.Project_Id;
+                    return _entities.SaveChanges() > 0;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         public bool DeleteProject(int projectId)
@@ -118,6 +135,6 @@ namespace ProjectManagement.Services
         }
 
 
-        
+
     }
 }

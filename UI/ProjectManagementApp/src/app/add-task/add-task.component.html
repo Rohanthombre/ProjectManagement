@@ -1,0 +1,118 @@
+<p>add-task works!</p>
+<div class="card bg-light">
+    <div class="card-header">Add Task</div>
+    <div class="card-body">
+        <form [formGroup]="AddUpdateTaskFormGroup" (ngSubmit)="onFormSubmit()" class="form-horizontal">
+            <div class="panel-body">
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label for="projectname" class="control-label">Project:</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" id="projectname" placeholder="Task Description" class="form-control col-sm-5"
+                            formControlName="taskName">
+                        <div *ngIf="projectname.invalid && projectname.errors?.required"
+                            class="alert alert-danger col-sm-5">
+                            Project is Required
+                        </div>
+
+                    </div>
+                    <div class="col-sm-4">
+
+                        <button type="button" class="btn btn-primary" (click)='searchProject()'>Search</button>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label for="taskname">Task:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="text" id="taskName" placeholder="Task Description" class="form-control "
+                            formControlName="taskName">
+                        <div *ngIf="taskName.invalid && taskName.errors?.required" class="alert alert-danger ">
+                            Task Description is Required
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label for="Priority">Priority:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <div>
+                            <div class="float-left">{{priorityMin}}</div>
+                            <div class="float-right">{{priorityMax}}</div>
+                        </div>
+                        <input type="range" min="{{priorityMin}}-1" max="{{priorityMax}}"
+                            class="form-control-range col-sm-6" id="priority" formControlName="priority">
+                        <div *ngIf="priority.invalid && priority.errors?.required" class="alert alert-danger ">
+                            Priority is required
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label for="parenttaskname">Parent Task:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <select class="form-control col-sm-6" formControlName="parentTaskId" id="parentTaskId">
+                            <option [ngValue]="null">--Select--</option>
+                            <option *ngFor="let task of parentTasks" [ngValue]="task.ParentTaskId">
+                                {{task.TaskName + "  " + task.ParentTaskId}}</option>
+                        </select>
+                        <div *ngIf="parentTaskId.invalid && parentTaskId.errors?.DefaultValueValidator"
+                            class="alert alert-danger ">
+                            Task Description is Required
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label for="startdate">Start Date:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="text" bsDatepicker id="startDate" placeholder="select date"
+                            class="form-control col-sm-6" formControlName="startDate"
+                            [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD-MM-YYYY' }" />
+
+                        <div *ngIf="startDate.invalid &&  startDate.errors?.IsValidDate" class="alert alert-danger">
+                            Start Date is Invalid
+                        </div>
+                        <div *ngIf="startDate.invalid &&  startDate.errors?.required" class="alert alert-danger">
+                            Start Date is Required
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label for="enddate">End Date:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="text" id="endDate" placeholder="select date" class="form-control col-sm-6"
+                            formControlName="endDate" bsDatepicker
+                            [bsConfig]="{dateInputFormat: 'DD-MM-YYYY', isAnimated: true }" />
+                        <div *ngIf="endDate.invalid &&  endDate.errors?.IsValidDate" class="alert alert-danger ">
+                            End Date is Invalid
+                        </div>
+                        <div *ngIf="endDate.invalid &&  endDate.errors?.required" class="alert alert-danger ">
+                            End Date is Required
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <br>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button type="submit" class="btn btn-primary">Save</button> &nbsp;
+                <button type="button" class="btn btn-primary" (click)='reset()'>Reset</button>
+
+                <!-- <button type="submit" class="btn btn-primary" [disabled]="task.invalid">Save</button>
+                            <button type="button" class="btn btn-primary" (click)='reset()'>Reset</button> -->
+            </div>
+
+        </form>
+    </div>
+</div>

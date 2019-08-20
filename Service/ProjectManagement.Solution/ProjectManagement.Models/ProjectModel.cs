@@ -10,8 +10,11 @@ namespace ProjectManagement.Models
     {
         public int ProjectId { get; set; }
         public string ProjectName { get; set; }
+        public int NoOfTasks { get; set; }
+        public int NoOfClosedTasks { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public int? Priority { get; set; }
+        public int? UserId { get; set; }
     }
 }

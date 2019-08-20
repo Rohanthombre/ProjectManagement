@@ -69,7 +69,8 @@ namespace ProjectManagement.WebApi.Tests.Controllers
                 ProjectName = "New test project",
                 StartDate = DateTime.Today.AddDays(-15),
                 EndDate = DateTime.Today.AddDays(-15),
-                Priority = 5
+                Priority = 5,
+                UserId = 1
             };
 
             // Arrange & Act
@@ -93,7 +94,8 @@ namespace ProjectManagement.WebApi.Tests.Controllers
                 ProjectName = "Edited test project",
                 StartDate = DateTime.Today.AddDays(-15),
                 EndDate = DateTime.Today.AddDays(-15),
-                Priority = 5
+                Priority = 5,
+                UserId = 1
             };
 
             // Arrange & Act

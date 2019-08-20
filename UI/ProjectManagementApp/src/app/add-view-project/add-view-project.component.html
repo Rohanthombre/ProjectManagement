@@ -1,0 +1,223 @@
+<p>add-view-project works!</p>
+<div class="card bg-light">
+    <div class="card-header">Add Project</div>
+    <div class="card-body">
+        <form [formGroup]="AddProjectFormGroup" (ngSubmit)="onFormSubmit()" class="form-horizontal">
+            <div class="panel-body">
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label for="projectName" class="control-label">Project:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="text" id="projectName" placeholder="Project Description" class="form-control"
+                            formControlName="projectName">
+
+                        <div *ngIf="projectName.invalid && projectName.errors?.required" class="alert alert-danger">
+                            Project is Required
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row form-group">
+
+                    <div class="row form-group">
+                        <div class="col-sm-1">
+                            <input type="checkbox" id="setDates" class="form-control" formControlName="setDates" />
+                        </div>
+                        <div class="col-sm-3">
+                            Set start and end date
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="startDate">Start Date:</label>
+
+                        </div>
+
+                        <div class="col-sm-2">
+                            <input type="text" id="startDate" placeholder="select date" class="form-control"
+                                formControlName="startDate" bsDatepicker [bsConfig]="{
+                                                        dateInputFormat: 'DD-MM-YYYY',
+                                                        containerClass: 'theme-dark-blue'
+                                                        }" />
+
+                            <div *ngIf="startDate.invalid &&  startDate.errors?.IsValidDate"
+                                class="alert alert-danger ">
+                                Start Date is Invalid
+                            </div>
+                            <div *ngIf="startDate.invalid &&  startDate.errors?.required" class="alert alert-danger ">
+                                Start Date is Required
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="endDate">End Date:</label>
+
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" id="endDate" placeholder="select date" class="form-control "
+                                formControlName="endDate" bsDatepicker
+                                [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD-MM-YYYY' }" />
+
+                            <div *ngIf="endDate.invalid &&  endDate.errors?.IsValidDate" class="alert alert-danger ">
+                                Start Date is Invalid
+                            </div>
+                            <div *ngIf="endDate.invalid &&  endDate.errors?.required" class="alert alert-danger ">
+                                Start Date is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label for="priority">Priority:</label>
+                    </div>
+
+                    <div class="col-sm-10">
+                        <div>
+                            <div class="float-left">{{priorityMin}}</div>
+                            <div class="float-right">{{priorityMax}}</div>
+                        </div>
+                        <input type="range" min="{{priorityMin}}-1" max="{{priorityMax}}"
+                            class="form-control-range col-sm-5" id="priority" formControlName="priority">
+                    </div>
+                    <div *ngIf="priority.invalid && priority.errors?.required" class="alert alert-danger">
+                        Priority is required
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label for="managerName">Manager:</label>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" id="managerName" placeholder="Manager's Name" class="form-control"
+                            formControlName="managerName">
+                        <div *ngIf="managerName.invalid && managerName.errors?.required" class="alert alert-danger">
+                            Manager is Required
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)='onSearchManager()'>Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <br>
+            </div>
+            <div class="panel-footer">
+                <button type="submit" class="btn btn-primary">Save</button> &nbsp;
+                <button type="button" class="btn btn-primary" (click)='reset()'>Reset</button>
+
+                <!-- <button type="submit" class="btn btn-primary" [disabled]="task.invalid">Save</button>
+                            <button type="button" class="btn btn-primary" (click)='reset()'>Reset</button> -->
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr>
+
+
+<div class="container-fluid">
+    <div class="row form-group">
+        <div class="col-sm-4">
+            <form [formGroup]="searchForm">
+                <input id="searchInput" type="text" placeholder="Search..." class="form-control"
+                    [formControl]="searchInputControl" />
+            </form>
+        </div>
+        <div class="col-sm-8 ">
+            <div class="col-sm-1">
+                <span>Sort:</span>
+            </div>
+            <div class="col-sm-11 ">
+                <button class="col-sm-3 btn btn-primary btn-action-margin" (click)="onSort('StartDate')"
+                    value="StartDate">
+                    Start Date
+                </button>
+                <button class="col-sm-3  btn btn-primary btn-action-margin" (click)="onSort('EndDate')" value="EndDate">
+                    End Date
+                </button>
+
+                <button class="col-sm-3 btn btn-primary btn-action-margin" (click)="onSort('Priority')"
+                    value="Priority">
+                    Priority
+                </button>
+
+                <button class="col-sm-3 btn btn-primary btn-action-margin" (click)="onSort('NoOfClosedTasks')"
+                    value="Completed">
+                    Completed
+                </button>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="
+              let project of (projects
+                | sort: sortBy | searchUser: ['Project']:searchUserInputValue ) ">
+                        <div class="container-fluid additional-margin">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="row" style="padding: 10px">
+                                        <span>Project: {{ project.ProjectName }}</span>
+                                    </div>
+
+                                    <div class="row" style="padding: 10px">
+                                        <div class="col-lg-6 col-ignore-padding">
+                                            <span>No of Tasks: {{ project.NoOfTasks }}</span>
+                                        </div>
+                                        <div class="col-lg-6 col-ignore-padding">
+                                            <span>Completed: {{ project.NoOfClosedTasks }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="padding: 10px">
+                                        <div class="col-lg-6 col-ignore-padding">
+                                            <span>Start Date : {{ project.StartDate |date:"dd/MMM/yyyy" }}</span>
+                                        </div>
+                                        <div class="col-lg-6 col-ignore-padding">
+                                            <span>End Date : {{ project.EndDate |date:"dd/MMM/yyyy" }}</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-sm-4" style="margin-left: 5px;">
+                                    <div class="row">
+                                        <span style="text-align: center;height: 100%;width: 100%;">Priority</span>
+                                    </div>
+
+                                    <div class="row"
+                                        style="background-color: lightgray;">
+                                        <span
+                                            style="text-align: center; align-content: center; vertical-align: middle; background-color: lightgray;height: 100%;width: 100%;">{{ project.Priority }}</span>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-1 container-fluid ">
+
+                                    <div class="row">
+                                        <button class="btn btn-primary" [disabled]="!project.IsActive"
+                                            (click)="onEditProject(project)">
+                                            Update
+                                        </button>
+                                    </div>
+                                    <div class="row">
+                                        <button class="btn btn-primary" (click)="onSuspendProject(project)">
+                                            {{project.IsActive ? 'Suspend':'Resume'}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

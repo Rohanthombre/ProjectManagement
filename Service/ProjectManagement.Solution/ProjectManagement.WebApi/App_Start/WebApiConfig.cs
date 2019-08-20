@@ -15,6 +15,8 @@ namespace ProjectManagement.WebApi
             var container = new UnityContainer();
 
             container.RegisterType<ITaskService, TaskService>();
+            container.RegisterType<IUserService, UserService>();
+            container.RegisterType<IProjectService, ProjectService>();
             config.DependencyResolver = new UnityResolver(container);
 
             // Web API configuration and services

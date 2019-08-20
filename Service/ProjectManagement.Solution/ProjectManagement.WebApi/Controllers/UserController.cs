@@ -6,9 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace ProjectManagement.WebApi.Controllers
 {
+    [EnableCors("*", "*", "*")]
+    [RoutePrefix("Api/User")]
     public class UserController : ApiController
     {
         private IUserService _userServices;

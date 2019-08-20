@@ -1,0 +1,136 @@
+<p>add-view-user works!</p>
+<div class="card bg-light">
+    <div class="card-header">Add User</div>
+    <div class="card-body">
+        <form [formGroup]="AddUserFormGroup" (ngSubmit)="onFormSubmit()" class="form-horizontal">
+            <div class="panel-body">
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label for="firstname">First Name:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="text" id="firstName" placeholder="First name" class="form-control col-sm-6"
+                            formControlName="firstName">
+                        <div *ngIf="firstName.invalid && firstName.errors?.required" class="alert alert-danger ">
+                            First Name is Required
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label for="lastName">Last Name:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="text" id="lastName" placeholder="Last name" class="form-control col-sm-5"
+                            formControlName="lastName">
+                        <div *ngIf="lastName.invalid && lastName.errors?.required" class="alert alert-danger col-sm-5">
+                            Last Name is Required
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label for="employeeId">Employee Id:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="text" id="employeeId" placeholder="Employee Id" class="form-control col-sm-5"
+                            formControlName="employeeId">
+                        <div *ngIf="employeeId.invalid && employeeId.errors?.required"
+                            class="alert alert-danger col-sm-5">
+                            Employee Id is Required
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button type="submit" class="btn btn-primary">Save</button> &nbsp;
+                <button type="button" class="btn btn-primary" (click)='reset()'>Reset</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr>
+
+
+<div class="container-fluid">
+    <div class="row form-group">
+        <div class="col-sm-4">
+            <form [formGroup]="searchForm">
+                <input id="searchInput" type="text" placeholder="Search..." class="form-control"
+                    [formControl]="searchInputControl" />
+            </form>
+        </div>
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-1">
+                    <span>Sort:</span>
+                </div>
+                <div class="col-sm-11 ">
+                    <button class="col-sm-3 btn btn-primary btn-action-margin" (click)="onSort('FirstName')"
+                        value="FirstName">
+                        First Name
+                    </button>
+                    <button class="col-sm-3  btn btn-primary btn-action-margin" (click)="onSort('LastName')"
+                        value="LastName">
+                        Last Name
+                    </button>
+
+                    <button class="col-sm-3 btn btn-primary btn-action-margin" (click)="onSort('EmployeeId')"
+                        value="EmployeeId">
+                        Id
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <hr>
+</div>
+
+<div class="container-fluid">
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="list-group">
+                <a class="list-group-item list-group-item-action flex-column align-items-start"
+                    *ngFor="let user of users | searchUser : ['FirstName','LastName']:searchUserInputValue | sort:sortBy">
+                    <div class="container-fluid additional-margin">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="row" style="padding: 5px">
+                                    <h6> First Name: </h6> {{ user.FirstName }}
+                                </div>
+                                <div class="row" style="padding: 5px">
+                                    <h6>Last Name:</h6> {{ user.LastName }}
+                                </div>
+                                <div class="row" style="padding: 5px">
+                                    <h6>Employee Id:</h6> {{ user.EmployeeId }}
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4  ">
+                                <div class="row container-fluid reponseiveRowMargin ">
+                                    <button class="btn btn-primary" (click)="onEditUser(user)">
+                                        Update
+                                    </button>
+                                </div>
+                                <br>
+                                <div class="row container-fluid reponseiveRowMargin">
+                                    <button class="btn btn-primary" (click)="onDeleteUser(user)">
+                                        Delete
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
