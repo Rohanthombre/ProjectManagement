@@ -85,8 +85,8 @@ export class AddTaskComponent implements OnInit {
 
     this.projectName = new FormControl('', Validators.required);
     this.taskName = new FormControl('', [Validators.required,
-    Validators.minLength(2),
-    Validators.maxLength(80)]);
+                                          Validators.minLength(2),
+                                          Validators.maxLength(80)]);
     this.priority = new FormControl('', Validators.required);
     this.endDate = new FormControl('', Validators.required);
     this.priority = new FormControl('', Validators.required);
@@ -126,7 +126,6 @@ export class AddTaskComponent implements OnInit {
       this.createOrEditTaskModel.UserId = this.AddUpdateTaskFormGroup.controls.userName.value.UserId;
 
       if (!this.isEditMode) {
-
         this.CreateTaskService(this.createOrEditTaskModel);
       }
       else {

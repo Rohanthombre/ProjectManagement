@@ -1,70 +1,84 @@
 <p>view-task works!</p>
-<div class="container-fluid panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{title}}</h3>
+<div class="container-fluid">
+    <div class="row container-fluid">
+        <div class="col-sm-2">
+            <form [formGroup]="searchForm">
+                <input id="searchInput" type="text" placeholder="Search..." class="form-control"
+                    [formControl]="searchInputControl" />
+            </form>
         </div>
-    
-        <div class="panel-body">
-            <!-- <form [formGroup]="viewQueryForm" name="viewQueryForm" id="viewQueryForm"> -->
-    
-                <div class="container-fluid justify-content text-left">
-                    <div class="form-group form-inline ">
-                        <label for="projectName" class="fieldlabelleft col-md-2">Task: </label>
-                        <input type="text" class="form-control col-md-4" [(ngModel)]="projectName" />
-                        <button type="button" class="btn btn-primary" (click)='reset()'>Search</button>
-    
+        <div class="col-sm-5 form-inline col-ignore-padding ">
+            <div class="col-sm-1 reponseiveRowMargin">
+                <span>Sort:</span>
+            </div>
+            <div class="col-sm-11 btn-group ">
+                <button class="col-sm-3 btn btn-primary btn-action-margin" (click)="onSort('StartDate')"
+                    value="StartDate">
+                    Start Date
+                </button>
+                <button class="col-sm-3  btn btn-primary btn-action-margin" (click)="onSort('EndDate')" value="EndDate">
+                    End Date
+                </button>
+
+                <button class="col-sm-3 btn btn-primary btn-action-margin" (click)="onSort('Priority')"
+                    value="Priority">
+                    Priority
+                </button>
+
+                <button class="col-sm-3 btn btn-primary btn-action-margin" (click)="onSort('NoOfClosedTasks')"
+                    value="Completed">
+                    Completed
+                </button>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row container-fluid">
+            <div class="panel-body">
+                    <div class='row'>
+                        <div class='col-md-6'>
+                        </div>
                     </div>
-                    
+                    <div class='table-responsive'>
+                        <table class='table' *ngIf='tasks && tasks.length'> 
+                            <thead>
+                                <tr>
+                                    <th>Task</th>
+                                    <th>Parent</th>
+                                    <th>Priority</th>
+                                    <th>Start</th>
+                                    <th>End</th>
+                                    <th>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor='let task of tasks '>
+                                    <td>
+                                        {{ task.TaskName }}
+                                    </td>
+                                    <td>
+                                        <!-- {{ task.ParentTask.TaskName }} -->
+                                        {{task.ParentTaskName}}
+                                    </td>
+            
+                                    <td>{{ task.Priority }}</td>
+                                    <td>{{ task.StartDate }}</td>
+                                    <td>{{ task.EndDate }}</td>
+                                    <td>
+                                        <button class='btn btn-primary' value="Edit"
+                                            [routerLink]="['/addupdate-task',{id:task.TaskId}]">Edit</button> &nbsp;
+                                        <button class='btn btn-primary' value="End Task">End Task</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            <!-- </form> -->
-        </div>
-    
-        <div class="panel-body">
-            <div class='row'>
-                <div class='col-md-6'>
+                <div class="panel-footer">
+                    <div *ngIf='errorMessage' class='alert alert-danger'>
+                        Error: {{ errorMessage }}
+                    </div>
                 </div>
-            </div>
-            <div class='table-responsive'>
-                <table class='table' *ngIf='tasks && tasks.length'>
-                    <thead>
-                        <tr>
-                            <th>Task</th>
-                            <th>Parent</th>
-                            <th>Priority</th>
-                            <th>Start</th>
-                            <th>End</th>
-                            <th>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                            *ngFor='let task of tasks | taskQuery : taskName'>
-                            <td>
-                                {{ task.TaskName }}
-                            </td>
-                            <td>
-                                <!-- {{ task.ParentTask.TaskName }} -->
-                                {{task.ParentTaskName}}
-                            </td>
-    
-                            <td>{{ task.Priority }}</td>
-                            <td>{{ task.StartDate }}</td>
-                            <td>{{ task.EndDate }}</td>
-                            <td>
-                                <button class='btn btn-primary' value="Edit"
-                                    [routerLink]="['/addupdate-task',{id:task.TaskId}]">Edit</button> &nbsp;
-                                <button class='btn btn-primary' value="End Task">End Task</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="panel-footer">
-            <div *ngIf='errorMessage' class='alert alert-danger'>
-                Error: {{ errorMessage }}
-            </div>
-        </div>
-    
-    
+    </div>
     </div>

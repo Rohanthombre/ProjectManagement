@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagement.Test.Qual
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagement.Services.Contracts", "ProjectManagement.Services.Contracts\ProjectManagement.Services.Contracts.csproj", "{15130A1B-5C1D-48CD-ADC6-4195ED79D6C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManagement.WebApi.Performance", "ProjectManagement.WebApi.Performance\ProjectManagement.WebApi.Performance.csproj", "{A2F18115-9886-4423-B037-262B9CD22171}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{15130A1B-5C1D-48CD-ADC6-4195ED79D6C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15130A1B-5C1D-48CD-ADC6-4195ED79D6C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15130A1B-5C1D-48CD-ADC6-4195ED79D6C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2F18115-9886-4423-B037-262B9CD22171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2F18115-9886-4423-B037-262B9CD22171}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2F18115-9886-4423-B037-262B9CD22171}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2F18115-9886-4423-B037-262B9CD22171}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

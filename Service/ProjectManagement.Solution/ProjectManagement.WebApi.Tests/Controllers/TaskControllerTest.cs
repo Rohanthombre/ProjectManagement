@@ -79,7 +79,8 @@ namespace ProjectManagement.WebApi.Tests.Controllers
                 StartDate = DateTime.Today.AddDays(-15),
                 EndDate = DateTime.Today.AddDays(-15),
                 Priority = 5,
-                Status = "Active"
+                Status = "Active",
+                User = new UserModel() { UserId = 1 }
             };
 
             // Arrange & Act
@@ -104,7 +105,8 @@ namespace ProjectManagement.WebApi.Tests.Controllers
                 StartDate = DateTime.Today.AddDays(-15),
                 EndDate = DateTime.Today.AddDays(-15),
                 Priority = 5,
-                Status = "Active"
+                Status = "Active",
+                User = new UserModel() { UserId = 1 }
             };
 
             // Arrange & Act
@@ -131,7 +133,8 @@ namespace ProjectManagement.WebApi.Tests.Controllers
                 StartDate = DateTime.Today.AddDays(-15),
                 EndDate = DateTime.Today.AddDays(-15),
                 Priority = 5,
-                Status = "Active"
+                Status = "Active",
+                User = new UserModel() { UserId = 2 }
             };
 
             // Arrange & Act
@@ -159,7 +162,8 @@ namespace ProjectManagement.WebApi.Tests.Controllers
                 StartDate = DateTime.Today.AddDays(-15),
                 EndDate = DateTime.Today.AddDays(-15),
                 Priority = 5,
-                Status = "Active"
+                Status = "Active",
+                User = new UserModel() { UserId = 1 }
             };
 
             // Arrange & Act
@@ -187,7 +191,8 @@ namespace ProjectManagement.WebApi.Tests.Controllers
                 StartDate = DateTime.Today.AddDays(-15),
                 EndDate = DateTime.Today.AddDays(-15),
                 Priority = 5,
-                Status = "Active"
+                Status = "Active",
+                User = new UserModel() { UserId = 1 }
             };
 
             // Arrange & Act

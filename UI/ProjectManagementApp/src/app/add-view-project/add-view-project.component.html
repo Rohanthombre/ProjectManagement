@@ -12,7 +12,7 @@
                         <input type="text" id="projectName" placeholder="Project Description" class="form-control"
                             formControlName="projectName">
 
-                        <div *ngIf="projectName.invalid && projectName.errors?.required" class="alert alert-danger">
+                        <div *ngIf=" projectName.invalid && projectName.errors?.required" class="alert alert-danger">
                             Project is Required
                         </div>
                     </div>
@@ -22,13 +22,16 @@
                 <div class="row form-group">
 
                     <div class="row form-group">
+                        <div class="col-sm-2">
+
+                        </div>
                         <div class="col-sm-1">
                             <input type="checkbox" id="setDates" class="form-control" formControlName="setDates" />
                         </div>
                         <div class="col-sm-3">
                             Set start and end date
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-1">
                             <label for="startDate">Start Date:</label>
 
                         </div>
@@ -48,7 +51,7 @@
                                 Start Date is Required
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-1">
                             <label for="endDate">End Date:</label>
 
                         </div>
@@ -79,10 +82,11 @@
                         </div>
                         <input type="range" min="{{priorityMin}}-1" max="{{priorityMax}}"
                             class="form-control-range col-sm-5" id="priority" formControlName="priority">
+                        <div *ngIf="priority.invalid && priority.errors?.required" class="alert alert-danger">
+                            Priority is required
+                        </div>
                     </div>
-                    <div *ngIf="priority.invalid && priority.errors?.required" class="alert alert-danger">
-                        Priority is required
-                    </div>
+
                 </div>
                 <div class="row form-group">
                     <div class="col-sm-2">
@@ -90,10 +94,8 @@
 
                     </div>
                     <div class="col-sm-6">
-                            <ngx-select-dropdown 
-                            formControlName = "managerName"
-                            [multiple]="false" 
-                            [config]="config" [options]="managerOptions">
+                        <ngx-select-dropdown formControlName="managerName" [multiple]="false" [config]="config"
+                            [options]="managerOptions">
                         </ngx-select-dropdown>
                         <div *ngIf="managerName.invalid && managerName.errors?.required" class="alert alert-danger">
                             Manager is Required
@@ -193,8 +195,7 @@
                                         <span style="text-align: center;height: 100%;width: 100%;">Priority</span>
                                     </div>
 
-                                    <div class="row"
-                                        style="background-color: lightgray;">
+                                    <div class="row" style="background-color: lightgray;">
                                         <span
                                             style="text-align: center; align-content: center; vertical-align: middle; background-color: lightgray;height: 100%;width: 100%;">{{ project.Priority }}</span>
                                     </div>

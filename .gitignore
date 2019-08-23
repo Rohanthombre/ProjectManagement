@@ -14,3 +14,6 @@
 /Service/ProjectManagement.Solution/ProjectManagement.WebApi.Tests/bin
 /Service/ProjectManagement.Solution/ProjectManagement.Services.Contracts/obj
 /Service/ProjectManagement.Solution/ProjectManagement.Services.Contracts/bin
+/Service/ProjectManagement.Solution/BuildArtifacts
+/Service/ProjectManagement.Solution/ProjectManagement.WebApi.Performance/obj
+/Service/ProjectManagement.Solution/ProjectManagement.WebApi.Performance/bin
