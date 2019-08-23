@@ -9,6 +9,7 @@ export class Task {
     EndDate: Date;
     Priority: number;
     Status : string;
+    UserId : number;
 }
 
 export class ParentTask

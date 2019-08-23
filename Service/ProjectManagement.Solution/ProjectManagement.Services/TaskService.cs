@@ -27,24 +27,36 @@ namespace ProjectManagement.Services
 
         public bool CreateTask(TaskModel taskModel)
         {
-            var task = new Task()
+            var user = _entities.Users.FirstOrDefault(e => e.User_Id == taskModel.User.UserId);
+            if (user != null)
             {
-                Parent_TaskId = taskModel.ParentTask != null ? taskModel.ParentTask.ParentTaskId : null,
-                Project_Id = taskModel.Project?.ProjectId,
-                TaskName = taskModel.TaskName,
-                Start_Date = taskModel.StartDate,
-                End_Date = taskModel.EndDate,
-                Priority = taskModel.Priority,
-                Status = taskModel.Status
-            };
-            _entities.Tasks.Add(task);
-            return _entities.SaveChanges() > 0;
+                var task = new Task()
+                {
+                    Parent_TaskId = taskModel.ParentTask != null ? taskModel.ParentTask.ParentTaskId : null,
+                    Project_Id = taskModel.Project?.ProjectId,
+                    TaskName = taskModel.TaskName,
+                    Start_Date = taskModel.StartDate,
+                    End_Date = taskModel.EndDate,
+                    Priority = taskModel.Priority,
+                    Status = taskModel.Status,
+
+                };
+                _entities.Tasks.Add(task);
+                if (_entities.SaveChanges() > 0)
+                {
+                    user.Task_Id = task.Task_Id;
+                    return _entities.SaveChanges() > 0;
+                }
+            }
+            return false;
+
         }
         public bool EditTask(TaskModel taskModel)
         {
             var task = _entities.Tasks.FirstOrDefault(e => e.Task_Id == taskModel.TaskId);
+            var user = _entities.Users.FirstOrDefault(e => e.User_Id == taskModel.User.UserId);
 
-            if (task != null)
+            if (task != null && user != null)
             {
                 task.Parent_TaskId = taskModel.ParentTask != null ? taskModel.ParentTask.ParentTaskId : null;
                 task.Project_Id = taskModel.Project?.ProjectId;
@@ -54,12 +66,14 @@ namespace ProjectManagement.Services
                 task.Priority = taskModel.Priority;
                 task.Status = taskModel.Status;
 
-                return _entities.SaveChanges() > 0;
+                if (_entities.SaveChanges() > 0)
+                {
+                    user.Task_Id = task.Task_Id;
+                    return _entities.SaveChanges() > 0;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
+
         }
         public bool DeleteTask(int taskId)
         {

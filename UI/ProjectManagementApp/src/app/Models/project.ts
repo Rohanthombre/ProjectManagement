@@ -7,5 +7,5 @@ export class Project {
     StartDate: Date;
     EndDate: Date;
     Priority: number;
-    ManagerId :number;
+    UserId :number;
 }

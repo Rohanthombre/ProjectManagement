@@ -90,8 +90,11 @@
 
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" id="managerName" placeholder="Manager's Name" class="form-control"
-                            formControlName="managerName">
+                            <ngx-select-dropdown 
+                            formControlName = "managerName"
+                            [multiple]="false" 
+                            [config]="config" [options]="managerOptions">
+                        </ngx-select-dropdown>
                         <div *ngIf="managerName.invalid && managerName.errors?.required" class="alert alert-danger">
                             Manager is Required
                         </div>
@@ -157,8 +160,7 @@
             <div class="col-sm-12">
                 <div class="list-group">
                     <a class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="
-              let project of (projects
-                | sort: sortBy | searchUser: ['Project']:searchUserInputValue ) ">
+              let project of (projects | sort: sortBy | commonSearch: ['Project']:searchProjectInputValue ) ">
                         <div class="container-fluid additional-margin">
                             <div class="row">
                                 <div class="col-sm-8">

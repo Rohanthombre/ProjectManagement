@@ -16,6 +16,7 @@ namespace ProjectManagement.Models
         public DateTime? EndDate { get; set; }
         public int? Priority { get; set; }
         public string Status { get; set; }
+        public UserModel User { get; set; }
 
     }
 

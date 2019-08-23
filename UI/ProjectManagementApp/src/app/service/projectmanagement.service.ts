@@ -18,20 +18,20 @@ export class ProjectmanagementService extends IProjectManagementService {
   }
 
   getAllTask(): Observable<Task[]> {
-    return this.http.get<Task[]>(environment.ApiService + '/GetTasks');
+    return this.http.get<Task[]>(environment.ApiService + 'Task/GetTasks');
   }
 
   getTaskById(taskId: number): Observable<Task> {
-    return this.http.get<Task>(environment.ApiService + '/GetTask?id=' + taskId);
+    return this.http.get<Task>(environment.ApiService + 'Task/GetTask?id=' + taskId);
   }
   createTask(createTaskModel: Task): Observable<Task> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.post<Task>(environment.ApiService + '/CreateTask/', createTaskModel, httpOptions);
+    return this.http.post<Task>(environment.ApiService + 'Task/CreateTask/', createTaskModel, httpOptions);
   }
 
   editTask(editTaskComponent: Task): Observable<Task> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.put<Task>(environment.ApiService + '/EditTask/', editTaskComponent, httpOptions);
+    return this.http.put<Task>(environment.ApiService + 'Task/EditTask/', editTaskComponent, httpOptions);
   }
 
 

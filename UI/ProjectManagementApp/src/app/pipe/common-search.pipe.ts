@@ -2,9 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { User } from '../Models/user';
 
 @Pipe({
-  name: 'searchUser'
+  name: 'commonSearch'
 })
-export class SearchUserPipe implements PipeTransform {
+export class CommonSearchPipe implements PipeTransform {
 
   transform(inputValues: any[], fields: string[],searchText:string): any {
     if (fields===null || fields.length===0 || !searchText || searchText.trim() == "") {

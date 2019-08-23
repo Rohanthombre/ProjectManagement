@@ -3,7 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Project } from '../Models/project';
 import { ProjectmanagementService } from '../service/projectmanagement.service';
 import { FormBuilder } from '@angular/forms';
-
+import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { User } from '../Models/user';
 
 @Component({
   selector: 'app-add-view-project',
@@ -20,13 +21,28 @@ export class AddViewProjectComponent implements OnInit {
   endDate: FormControl;
   priority: FormControl;
   managerName: FormControl;
+  
 
   formSubmitted: boolean;
   isEditMode: boolean;
   editProjectId: number;
 
+
+
   searchForm: FormGroup;
   searchInputControl: FormControl;
+
+  singleSelect: any = [];
+  config = {
+    displayKey: "FirstName" , //if objects array passed which key to be displayed defaults to description
+    search: true,
+    placeholder:"Select",
+    noResultsFound: 'No results found!' ,
+    searchPlaceholder:'Search'
+  
+  };
+  managerOptions: any ;
+
 
   errorMessage = '';
   successMessage = '';
@@ -46,13 +62,14 @@ export class AddViewProjectComponent implements OnInit {
     NoOfClosedTasks:null,
     EndDate: null,
     Priority: null,
-    ManagerId: null
+    UserId: null
   };
 
   constructor(private projectManagementService: ProjectmanagementService, private fb: FormBuilder) { }
 
   ngOnInit() {
 
+    
 
     this.projectName = new FormControl('', [Validators.required,
                                             Validators.minLength(2),
@@ -72,7 +89,9 @@ export class AddViewProjectComponent implements OnInit {
       managerName: this.managerName
     });
 
+    this.initFormsControl();
     this.loadProjectDetails();
+    this.loadManagerDetails();
     // this.AddProjectFormGroup = this.fb.group({
     //   projectName: this.projectName,
     //   setDates: this.setDates,
@@ -93,7 +112,7 @@ export class AddViewProjectComponent implements OnInit {
       this.createOrEditProjectModel.StartDate = this.AddProjectFormGroup.controls.startDate.value;
       this.createOrEditProjectModel.EndDate = this.AddProjectFormGroup.controls.endDate.value;
       this.createOrEditProjectModel.Priority = this.AddProjectFormGroup.controls.priority.value;
-      this.createOrEditProjectModel.ManagerId = this.AddProjectFormGroup.controls.ManagerId.value;
+      this.createOrEditProjectModel.UserId = this.AddProjectFormGroup.controls.managerName.value.UserId;
 
       if (!this.isEditMode) {
 
@@ -138,7 +157,7 @@ export class AddViewProjectComponent implements OnInit {
     this.AddProjectFormGroup.controls.startDate.setValue(project.StartDate);
     this.AddProjectFormGroup.controls.endDate.setValue(project.EndDate);
     this.AddProjectFormGroup.controls.priority.setValue(project.Priority);
-    this.AddProjectFormGroup.controls.managerName.setValue(project.ManagerId);
+    this.AddProjectFormGroup.controls.managerName.setValue(project.UserId);
 
 
   }
@@ -159,6 +178,14 @@ export class AddViewProjectComponent implements OnInit {
       error => this.errorMessage = <any>error
     );
   }
+  loadManagerDetails(): void {
+    this.projectManagementService.getAllUsers().subscribe(x => {
+      this.managerOptions = x;
+    },
+      error => this.errorMessage = <any>error
+    );
+  }
+  
   resetForm() {
     // this.newTaskForm.reset();
     this.AddProjectFormGroup.reset();

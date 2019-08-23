@@ -12,8 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TaskQueryPipe } from './task-query.pipe';
-import { SearchUserPipe } from './pipe/search-user.pipe';
+import { CommonSearchPipe } from './pipe/common-search.pipe';
 import { SortPipe } from './pipe/sort.pipe';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { SortPipe } from './pipe/sort.pipe';
     AddTaskComponent,
     ViewTaskComponent,
     TaskQueryPipe,
-    SearchUserPipe,
+    CommonSearchPipe,
     SortPipe
   ],
   imports: [
@@ -35,7 +36,8 @@ import { SortPipe } from './pipe/sort.pipe';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    SelectDropDownModule
   ],
   providers: [],
   bootstrap: [AppComponent]
