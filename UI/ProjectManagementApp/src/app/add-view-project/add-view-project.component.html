@@ -12,7 +12,8 @@
                         <input type="text" id="projectName" placeholder="Project Description" class="form-control"
                             formControlName="projectName">
 
-                        <div *ngIf=" projectName.invalid && projectName.errors?.required" class="alert alert-danger">
+                        <div *ngIf="projectName.touched  && projectName.invalid && projectName.errors?.required"
+                            class="alert alert-danger">
                             Project is Required
                         </div>
                     </div>
@@ -20,54 +21,65 @@
                 </div>
 
                 <div class="row form-group">
+                    <form [formGroup]="dateFormGroup" class="form-horizontal col-sm-12 col-ignore-padding"
+                        style="width:100%">
+                        <div class="row form-group">
+                            <div class="col-sm-2">
 
-                    <div class="row form-group">
-                        <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="checkbox" id="setDates" class="form-control" formControlName="setDates" />
+                            </div>
+                            <div class="col-sm-3">
+                                Set start and end date
+                            </div>
+                            <div class="col-sm-1">
+                                <label for="startDate">Start Date:</label>
 
-                        </div>
-                        <div class="col-sm-1">
-                            <input type="checkbox" id="setDates" class="form-control" formControlName="setDates" />
-                        </div>
-                        <div class="col-sm-3">
-                            Set start and end date
-                        </div>
-                        <div class="col-sm-1">
-                            <label for="startDate">Start Date:</label>
+                            </div>
 
-                        </div>
-
-                        <div class="col-sm-2">
-                            <input type="text" id="startDate" placeholder="select date" class="form-control"
-                                formControlName="startDate" bsDatepicker [bsConfig]="{
+                            <div class="col-sm-2">
+                                <input type="text" id="startDate" placeholder="select date" class="form-control"
+                                    formControlName="startDate" bsDatepicker [bsConfig]="{
                                                         dateInputFormat: 'DD-MM-YYYY',
                                                         containerClass: 'theme-dark-blue'
                                                         }" />
 
-                            <div *ngIf="startDate.invalid &&  startDate.errors?.IsValidDate"
-                                class="alert alert-danger ">
-                                Start Date is Invalid
+                                <div *ngIf="startDate.touched  && startDate.invalid &&  startDate.errors?.IsValidDate"
+                                    class="alert alert-danger ">
+                                    Start Date is Invalid
+                                </div>
+                                <div *ngIf="startDate.touched  && startDate.invalid &&  startDate.errors?.required"
+                                    class="alert alert-danger ">
+                                    Start Date is Required
+                                </div>
                             </div>
-                            <div *ngIf="startDate.invalid &&  startDate.errors?.required" class="alert alert-danger ">
-                                Start Date is Required
-                            </div>
-                        </div>
-                        <div class="col-sm-1">
-                            <label for="endDate">End Date:</label>
+                            <div class="col-sm-1">
+                                <label for="endDate">End Date:</label>
 
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" id="endDate" placeholder="select date" class="form-control "
-                                formControlName="endDate" bsDatepicker
-                                [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD-MM-YYYY' }" />
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" id="endDate" placeholder="select date" class="form-control "
+                                    formControlName="endDate" bsDatepicker
+                                    [bsConfig]="{
+                                                        dateInputFormat: 'DD-MM-YYYY',
+                                                        containerClass: 'theme-dark-blue'
+                                                        }" />
 
-                            <div *ngIf="endDate.invalid &&  endDate.errors?.IsValidDate" class="alert alert-danger ">
-                                Start Date is Invalid
-                            </div>
-                            <div *ngIf="endDate.invalid &&  endDate.errors?.required" class="alert alert-danger ">
-                                Start Date is Required
+                                <div *ngIf="endDate.touched  && endDate.invalid &&  endDate.errors?.IsValidDate"
+                                    class="alert alert-danger ">
+                                    End Date is Invalid
+                                </div>
+                                <div *ngIf="endDate.touched  && endDate.invalid &&  endDate.errors?.required"
+                                    class="alert alert-danger ">
+                                    End Date is Required
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div *ngIf="dateFormGroup.invalid && dateFormGroup.dirty" class="alert alert-danger">
+                            To Date must be greater than Start Date
+                        </div>
+                    </form>
                 </div>
 
                 <div class="row form-group">
@@ -76,13 +88,16 @@
                     </div>
 
                     <div class="col-sm-10">
-                        <div>
-                            <div class="float-left">{{priorityMin}}</div>
-                            <div class="float-right">{{priorityMax}}</div>
-                        </div>
+                        <!-- <div>
+                            <div class="form-control-range col-sm-5 float-left">{{priorityMin}}</div>
+                            <div class="form-control-range col-sm-5 float-right">{{priorityMax}}</div>
+                        </div> -->
                         <input type="range" min="{{priorityMin}}-1" max="{{priorityMax}}"
                             class="form-control-range col-sm-5" id="priority" formControlName="priority">
-                        <div *ngIf="priority.invalid && priority.errors?.required" class="alert alert-danger">
+                        <div>
+                            <div class="form-control-range col-sm-5 float-left">{{priority.value}}</div>
+                        </div>
+                        <div *ngIf="priority.touched  &&  priority.errors?.required" class="alert alert-danger">
                             Priority is required
                         </div>
                     </div>
@@ -97,7 +112,7 @@
                         <ngx-select-dropdown formControlName="managerName" [multiple]="false" [config]="config"
                             [options]="managerOptions">
                         </ngx-select-dropdown>
-                        <div *ngIf="managerName.invalid && managerName.errors?.required" class="alert alert-danger">
+                        <div *ngIf="managerName.touched &&  managerName.invalid && managerName.errors?.required" class="alert alert-danger">
                             Manager is Required
                         </div>
                     </div>
@@ -205,7 +220,12 @@
                                 <div class="col-sm-1 container-fluid ">
 
                                     <div class="row">
-                                        <button class="btn btn-primary" [disabled]="!project.IsActive"
+                                        <!-- <button class="btn btn-primary" 
+                                        [disabled]="!project.IsActive"
+                                            (click)="onEditProject(project)">
+                                            Update
+                                        </button> -->
+                                        <button class="btn btn-primary" 
                                             (click)="onEditProject(project)">
                                             Update
                                         </button>

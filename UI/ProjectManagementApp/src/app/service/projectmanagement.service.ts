@@ -57,7 +57,7 @@ export class ProjectmanagementService extends IProjectManagementService {
 
   }
   deleteUser(id: number) {
-    return this.http.delete(environment.ApiService + 'User/DeleteUser/' + id);
+    return this.http.delete(environment.ApiService + 'User/DeleteUser?userId=' + id);
   }
 
 

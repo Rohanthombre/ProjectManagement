@@ -30,6 +30,7 @@ export class ViewTaskComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadTaskDetails();
   }
 
   private initFormsControl() {
