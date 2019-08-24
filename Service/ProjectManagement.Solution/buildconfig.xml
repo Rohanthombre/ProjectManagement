@@ -1,8 +1,8 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="RunUnitTests" ToolVersions="15.0">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0"  DefaultTargets="RunUnitTests" >
   <ItemGroup>
     <BuildArtifactsDir Include="BuildArtifacts\" />
     <SolutionFile Include="ProjectManagement.Solution.sln" />
-    <NunitConsole Include="C:\Program Files (x86)\NUnit.org\nunit-console\nunit3-console.exe" />
+    <NunitConsole Include="C:\Program Files (x86)\NUnit 2.6.1\bin\nunit-console.exe" />
     <NunitDll Include="ProjectManagement.WebApi.Tests.dll" />
     <TestResult Include="TestResult.xml" />
 	<BuildAftifacts Include="BuildArtifacts\_PublishedWebsites\ProjectManagement.WebApi\**\*.*" />

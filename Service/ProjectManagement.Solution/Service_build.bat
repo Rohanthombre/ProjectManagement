@@ -1,2 +1,2 @@
-C:\Windows\Microsoft.NET\Framework64\v4.0.30319\msbuild.exe "%cd%\buildconfig.xml" /p:TargetFrameworkVersion=v4.5.2 /p:VisualStudioVersion=10.0 /p:RunCodeAnalysis=False 
+"C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\MSBuild.exe" "%cd%\buildconfig.xml" /p:TargetFrameworkVersion=v4.5.2 /p:VisualStudioVersion=14.0 /p:RunCodeAnalysis=False 
 pause
