@@ -18,6 +18,16 @@ export class ViewTaskComponent implements OnInit {
   @Input()
   tasks: Task[];
 
+  projectConfig = {
+    displayKey: "ProjectName", //if objects array passed which key to be displayed defaults to description
+    search: true,
+    placeholder: "Select",
+    noResultsFound: 'No results found!',
+    searchPlaceholder: 'Search'
+
+  };
+  projectOptions: any;
+
   sortBy: String = "StartDate";
 
   searchUserInputValue:string="";
@@ -31,6 +41,7 @@ export class ViewTaskComponent implements OnInit {
 
   ngOnInit() {
     this.loadTaskDetails();
+    this.loadProjectDetails();
   }
 
   private initFormsControl() {
@@ -50,6 +61,14 @@ export class ViewTaskComponent implements OnInit {
   loadTaskDetails(): void {
     this.projectManagementService.getAllTask().subscribe(x => {
       this.tasks = x;
+    },
+      error => this.errorMessage = <any>error
+    );
+  }
+
+  loadProjectDetails(): void {
+    this.projectManagementService.getAllProjects().subscribe(x => {
+      this.projectOptions = x;
     },
       error => this.errorMessage = <any>error
     );

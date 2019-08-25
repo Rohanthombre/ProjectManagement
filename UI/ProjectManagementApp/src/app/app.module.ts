@@ -15,6 +15,7 @@ import { TaskQueryPipe } from './task-query.pipe';
 import { CommonSearchPipe } from './pipe/common-search.pipe';
 import { SortPipe } from './pipe/sort.pipe';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { SearchTaskPipe } from './pipe/search-task.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
     ViewTaskComponent,
     TaskQueryPipe,
     CommonSearchPipe,
-    SortPipe
+    SortPipe,
+    SearchTaskPipe
   ],
   imports: [
     BrowserAnimationsModule,
@@ -40,6 +42,7 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
     SelectDropDownModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [SearchTaskPipe]
 })
 export class AppModule { }

@@ -8,4 +8,4 @@ export class Project {
     EndDate: Date;
     Priority: number;
     UserId :number;
-}
+}0
